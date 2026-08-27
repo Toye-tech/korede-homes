@@ -1,0 +1,27 @@
+{% load humanize %}
+<div class="property-card">
+  <a href="{{ property.get_absolute_url }}" class="property-media">
+    {% if property.cover_image %}
+      <img src="{{ property.cover_image.url }}" alt="{{ property.title }}">
+    {% else %}
+      <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80" alt="{{ property.title }}">
+    {% endif %}
+    {% if property.status == 'sold' %}
+      <span class="badge status-sold">Sold Out</span>
+    {% elif property.is_featured %}
+      <span class="badge">Featured</span>
+    {% else %}
+      <span class="badge">{{ property.get_listing_type_display }}</span>
+    {% endif %}
+  </a>
+  <div class="property-body">
+    <div class="property-price">&#8358;{{ property.price|intcomma }}{% if property.listing_type == 'lease' %}<span style="font-size:.75rem; color:var(--color-muted); font-weight:400;">/year</span>{% endif %}</div>
+    <h3 class="property-title"><a href="{{ property.get_absolute_url }}">{{ property.title }}</a></h3>
+    <div class="property-location">&#128205; {{ property.location }}</div>
+    <div class="property-meta">
+      {% if property.bedrooms %}<span>&#128716; {{ property.bedrooms }} Beds</span>{% endif %}
+      {% if property.bathrooms %}<span>&#128703; {{ property.bathrooms }} Baths</span>{% endif %}
+      {% if property.size_sqm %}<span>&#128207; {{ property.size_sqm }} sqm</span>{% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}About Us | {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1>About Korede Homes and Properties</h1>
+    <div class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / About Us</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container two-col">
+    <div>
+      <span class="eyebrow">Our Story</span>
+      <h2>Building Trust, One Property At A Time</h2>
+      <p class="text-muted">Korede Homes and Properties exists to make land and homeownership simple, transparent and achievable for every Nigerian. From our verified titles to our flexible installment plans, every part of our process is designed to protect our clients and deliver real value.</p>
+      <p class="text-muted">We work directly with surveyors, government agencies and construction partners to ensure every estate we sell is genuine, accessible and set up for long-term appreciation.</p>
+      <div class="feature-grid" style="grid-template-columns:repeat(2,1fr); margin-top:32px;">
+        <div class="feature-card">
+          <div class="feature-icon">&#127919;</div>
+          <h4>Our Mission</h4>
+          <p class="text-muted mb-0">To provide secure, affordable and verified real estate solutions nationwide.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128065;</div>
+          <h4>Our Vision</h4>
+          <p class="text-muted mb-0">To be the most trusted real estate brand for everyday Nigerians.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Korede Homes team" style="border-radius:var(--radius); box-shadow:var(--shadow);">
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Our Values</span>
+      <h2>What We Stand For</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="feature-icon">&#129309;</div><h4>Integrity</h4><p class="text-muted mb-0">Honest dealings, verified documents, no hidden fees.</p></div>
+      <div class="feature-card"><div class="feature-icon">&#9889;</div><h4>Speed</h4><p class="text-muted mb-0">Fast processing from inspection to allocation.</p></div>
+      <div class="feature-card"><div class="feature-icon">&#128176;</div><h4>Affordability</h4><p class="text-muted mb-0">Plans that work with real Nigerian incomes.</p></div>
+      <div class="feature-card"><div class="feature-icon">&#127942;</div><h4>Excellence</h4><p class="text-muted mb-0">Quality estates, quality service, every time.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

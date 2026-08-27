@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Properties | {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1>Our Properties</h1>
+    <div class="breadcrumb"><a href="{% url 'core:home' %}">Home</a> / Properties</div>
+  </div>
+</section>
+
+<div class="container">
+  <form class="search-card" method="get">
+    <div class="search-grid">
+      <div class="field">
+        <label>Search</label>
+        <input type="text" name="q" placeholder="Search properties..." value="{{ request_get.q|default:'' }}">
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <select name="type">
+          <option value="">Any type</option>
+          {% for pt in property_types %}
+            <option value="{{ pt.id }}" {% if request_get.type == pt.id|stringformat:"s" %}selected{% endif %}>{{ pt.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label>Location</label>
+        <select name="location">
+          <option value="">Any location</option>
+          {% for loc in locations %}
+            <option value="{{ loc.id }}" {% if request_get.location == loc.id|stringformat:"s" %}selected{% endif %}>{{ loc }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label>Listing Type</label>
+        <select name="listing_type">
+          <option value="">Any</option>
+          <option value="sale" {% if request_get.listing_type == "sale" %}selected{% endif %}>For Sale</option>
+          <option value="lease" {% if request_get.listing_type == "lease" %}selected{% endif %}>For Lease</option>
+          <option value="installment" {% if request_get.listing_type == "installment" %}selected{% endif %}>Installment</option>
+        </select>
+      </div>
+      <div class="field">
+        <button type="submit" class="btn btn-dark btn-block">Filter</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<section class="section">
+  <div class="container">
+    <p class="text-muted">{{ page_obj.paginator.count }} propert{{ page_obj.paginator.count|pluralize:"y,ies" }} found</p>
+    <div class="property-grid">
+      {% for property in page_obj %}
+        {% include "includes/property_card.html" %}
+      {% empty %}
+        <p class="text-muted">No properties match your search. Try adjusting your filters.</p>
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        {% if num == page_obj.number %}
+          <span class="current">{{ num }}</span>
+        {% else %}
+          <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

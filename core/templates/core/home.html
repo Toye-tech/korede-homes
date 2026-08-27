@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Nigeria's Trusted Real Estate Partner</span>
+      <h1>Own Verified Land &amp; Homes Without the Stress</h1>
+      <p>Korede Homes and Properties helps you secure affordable, genuine-title land and houses across Nigeria — with flexible installment plans and a dedicated agent from search to keys.</p>
+      <div class="hero-actions">
+        <a href="{% url 'properties:list' %}" class="btn btn-primary">Browse Properties</a>
+        <a href="{% url 'core:contact' %}" class="btn btn-outline">Book Free Inspection</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>500+</strong><span>Properties Delivered</span></div>
+        <div><strong>13+</strong><span>Years Experience</span></div>
+        <div><strong>10k+</strong><span>Happy Clients</span></div>
+        <div><strong>15</strong><span>States Covered</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <form class="search-card" method="get" action="{% url 'properties:list' %}">
+    <div class="search-grid">
+      <div class="field">
+        <label>Property Type</label>
+        <select name="type">
+          <option value="">Any type</option>
+          {% for pt in property_types %}<option value="{{ pt.id }}">{{ pt.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label>Location</label>
+        <select name="location">
+          <option value="">Any location</option>
+          {% for loc in locations %}<option value="{{ loc.id }}">{{ loc }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label>Listing Type</label>
+        <select name="listing_type">
+          <option value="">Sale or Lease</option>
+          <option value="sale">For Sale</option>
+          <option value="lease">For Lease</option>
+          <option value="installment">Installment Plan</option>
+        </select>
+      </div>
+      <div class="field">
+        <button type="submit" class="btn btn-dark btn-block">Search Properties</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Featured Listings</span>
+      <h2>Handpicked Properties Just For You</h2>
+      <p>Explore a selection of our most sought-after estates and homes, verified and ready for immediate ownership.</p>
+    </div>
+    <div class="property-grid">
+      {% for property in featured_properties %}
+        {% include "includes/property_card.html" %}
+      {% empty %}
+        {% for property in latest_properties %}
+          {% include "includes/property_card.html" %}
+        {% empty %}
+          <p class="text-muted">No properties published yet — add some from the admin dashboard.</p>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div style="text-align:center; margin-top:40px;">
+      <a href="{% url 'properties:list' %}" class="btn btn-dark">View All Properties</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>Real Estate, Done The Right Way</h2>
+      <p>We built Korede Homes on transparency, verified titles and genuine after-sales support — from your first inspection to handover.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#9989;</div>
+        <h4>Verified Titles</h4>
+        <p class="text-muted mb-0">Every property is backed by authentic, government-verified documentation.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128176;</div>
+        <h4>Flexible Payment Plans</h4>
+        <p class="text-muted mb-0">Spread payments over months with plans designed around your budget.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128101;</div>
+        <h4>Dedicated Agents</h4>
+        <p class="text-muted mb-0">A personal agent guides you from inspection through to key handover.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127968;</div>
+        <h4>Nationwide Estates</h4>
+        <p class="text-muted mb-0">Choose from estates across major cities and growth corridors in Nigeria.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Client Stories</span>
+      <h2>What Our Clients Say</h2>
+    </div>
+    <div class="testimonial-grid">
+      {% for t in testimonials %}
+      <div class="testimonial-card">
+        <div class="stars">{% for i in "12345" %}&#9733;{% endfor %}</div>
+        <p>&ldquo;{{ t.message }}&rdquo;</p>
+        <div class="testimonial-person">
+          {% if t.photo %}<img src="{{ t.photo.url }}" alt="{{ t.client_name }}">{% else %}<div class="mark" style="width:46px;height:46px;border-radius:50%;">{{ t.client_name|first }}</div>{% endif %}
+          <div>
+            <strong style="display:block; font-size:.92rem;">{{ t.client_name }}</strong>
+            <span class="text-muted" style="font-size:.82rem;">{{ t.client_location }}</span>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+        <p class="text-muted">Testimonials will appear here once added from the admin dashboard.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <h2>Ready to Own Your Dream Property?</h2>
+      <p>Speak with a Korede Homes agent today and take the first step toward secure, affordable homeownership.</p>
+      <a href="{% url 'core:contact' %}" class="btn btn-primary">Talk to an Agent</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

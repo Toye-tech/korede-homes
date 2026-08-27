@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Blog | {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="hero" style="padding:60px 0;">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Insights &amp; Updates</span>
+      <h1>Our Blog</h1>
+      <p>Tips, market updates, and guides on buying land and homes in Nigeria.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="property-grid">
+      {% for post in posts %}
+        <div class="property-card">
+          {% if post.cover_image %}
+            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+          {% endif %}
+          <div class="property-card-body">
+            <h3><a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a></h3>
+            <p class="text-muted">{{ post.published_at|date:"M d, Y" }}</p>
+            <p>{{ post.excerpt|default:post.body|truncatewords:20 }}</p>
+            <a href="{% url 'blog:detail' post.slug %}" class="btn btn-outline">Read More</a>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No blog posts published yet — add some from the admin dashboard.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
