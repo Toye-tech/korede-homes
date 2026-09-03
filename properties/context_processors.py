@@ -4,7 +4,7 @@ def site_settings(request):
         'SITE_NAME': 'Korede Homes and Properties',
         'SITE_PHONE': '+234 803 802 1970',
         'SITE_PHONE_2': '+234 807 830 9300',
-        'SITE_EMAIL': 'koredeodunayo54@gmail.com',
+        'SITE_EMAIL': 'koredeodunayo543@gmail.com',
         'SITE_WHATSAPP': '2348038021970',
-        'SITE_ADDRESS': '15 Oluwo Nla, Basorun via BCOS, Ibadan, Oyo State, Nigeria',
+        'SITE_ADDRESS': '5 Akanbi Akinpelu close,besides health centre,Oluwo Nla,Basorun, Ibadan, Oyo State, Nigeria',
     }
