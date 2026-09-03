@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 
+import logging
+logger = logging.getLogger(__name__)
 from properties.models import Property, Testimonial, PropertyType, Location, Service, FAQ
 from properties.forms import InquiryForm
 
@@ -38,10 +40,10 @@ def contact(request):
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[settings.ADMIN_EMAIL],
-                    fail_silently=True,
+                    fail_silently=False,
                 )
-            except Exception:
-                pass
+            except Exception as e:
+                logger.error(f"Contact form email failed: {e}", exc_info=True)
             messages.success(request, "Thank you for reaching out! We'll get back to you shortly.")
             return redirect('core:contact')
     else:
