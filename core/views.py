@@ -64,3 +64,8 @@ def service_detail(request, slug):
 def faq(request):
     faqs = FAQ.objects.filter(is_active=True)
     return render(request, 'core/faq.html', {'faqs': faqs})
+
+from django.http import HttpResponse
+
+def health_check(request):
+    return HttpResponse("OK", status=200)
